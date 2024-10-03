@@ -155,7 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\EnglishParsable.cpp">
+    <ClCompile Include="plaintext_parser.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <Optimization>Disabled</Optimization>
@@ -230,10 +230,11 @@
       <AdditionalIncludeDirectories>C:\Users\alexa\RiderProjects\VCT-File-Parser\VCT-File-Parser\include;C:\Users\alexa\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
-    <ClCompile Include="VCT_File_Parser.cpp" />
+    <ClCompile Include="vct-json.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\EnglishParsable.h" />
+    <ClInclude Include="include\parser_functions.h" />
+    <ClInclude Include="include\plaintext_parser.h" />
     <ClInclude Include="include\nlohmann\adl_serializer.hpp" />
     <ClInclude Include="include\nlohmann\byte_container_with_subtype.hpp" />
     <ClInclude Include="include\nlohmann\detail\abi_macros.hpp" />
@@ -279,6 +280,7 @@
     <ClInclude Include="include\nlohmann\ordered_map.hpp" />
     <ClInclude Include="include\nlohmann\thirdparty\hedley\hedley.hpp" />
     <ClInclude Include="include\nlohmann\thirdparty\hedley\hedley_undef.hpp" />
+    <ClInclude Include="include\plaintext_parser_error.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
