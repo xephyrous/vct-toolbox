@@ -9,6 +9,9 @@
 
 using json = nlohmann::json;
 
+// Prototypes
+std::vector<std::string> split (const std::string &s, char delim);
+
 // A numerical representation of the parse type argument
 enum parse_type {
     MATCH_DATA
@@ -20,7 +23,7 @@ const std::string parse_type_str[] = {
 };
 
 int main(const int argc, char *argv[]) {
-    if (argc != 4 && argc != 5) {
+    if (argc < 4) {
         (void)fprintf(stderr, "Invalid arguments!\nUsage: vct-json <input file> <output file> <parse type> <parse options>\n");
     }
 
@@ -55,6 +58,23 @@ int main(const int argc, char *argv[]) {
     // Parser setup & execution
     plaintext_parser parser = plaintext_parser(json_obj);
     int result = parser.set_output(argv[2]);
+
+    // Extract & validate parser options
+    if (argc > 4) {
+        std::vector<std::string> opts;
+
+        size_t c_pos;
+        for (int i = 4; i < argc; i++) {
+            if (argv[i][0] != '-') {
+                (void)fprintf(stderr, "Invalid parse option definition '%s' at position %d. Did you mean '-%s'?\n", argv[i], i, argv[i]);
+                exit(-1);
+            }
+
+            opts.emplace_back(std::string(argv[i]).substr(1, std::string(argv[i]).length()));
+        }
+
+        parser.set_parse_options(opts);
+    }
 
     if (!result) {
         (void)fprintf(stderr, "Invalid save path '%s'!", argv[2]);
