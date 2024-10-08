@@ -1,5 +1,4 @@
-﻿#include "include\plaintext_parser.h"
-
+﻿#include "plaintext_parser.h"
 #include "plaintext_parser_error.h"
 
 plaintext_parser::plaintext_parser(const json& input_json) {
@@ -12,7 +11,7 @@ plaintext_parser::plaintext_parser(const json& input_json) {
  * \return The path's validity, 0 if invalid
  */
 uint8_t plaintext_parser::set_output(const std::string& path) {
-    if (std::ifstream(path).good()) { return 0; }
+    if (!std::ofstream(path).good()) { return 0; }
     parse_opts.emplace_back(path);
     return 1;
 }
@@ -40,6 +39,11 @@ void plaintext_parser::set_parse_options(const std::vector<std::string>& options
  * \note Any error will fall through and be caught by the caller
  */
 void plaintext_parser::parse() const {
+    if (parse_function == nullptr) {
+        (void) fprintf(stderr, "[ WARNING ] : No parse function has been set!\n");
+        return;
+    }
+    
     parse_function(json_data, parse_opts);
 }
 

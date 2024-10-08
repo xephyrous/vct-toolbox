@@ -23,7 +23,7 @@ public:
 private:
     json json_data;
     std::ifstream save_path;
-    std::function<void(json, std::vector<std::string>)> parse_function;
+    std::function<void(json, std::vector<std::string>)> parse_function = nullptr;
     std::vector<std::string> parse_opts;
 };
 
